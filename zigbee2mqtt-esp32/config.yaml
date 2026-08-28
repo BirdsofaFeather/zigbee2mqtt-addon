@@ -25,7 +25,7 @@ options:
 schema:
   mqtt_server: str
   mqtt_user: str
-  mqtt_password: str
+  mqtt_password: password
   serial_port: str
   zigbee_channel: int
 devices:
