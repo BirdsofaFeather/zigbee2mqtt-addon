@@ -14,7 +14,7 @@ init: false
 uart: true
 udev: true
 devices:
-  - /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
+  - /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
 
 map:
   - addon_config:rw
@@ -44,7 +44,7 @@ options:
     base_topic: zigbee2mqtt
 
   serial:
-    port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
+    port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
     adapter: ember
     baudrate: 115200
     rtscts: false
