@@ -1,20 +1,15 @@
-name: Zigbee2MQTT (ESP32-C6 Custom)
-version: "0.1.0"          # ← now just a label; HA no longer uses it as a pull tag
-slug: zigbee2mqtt_esp32
-description: Custom tostmann Zigbee2MQTT fork with ESP32-C6 coordinator support
-url: https://github.com/tostmann/esp-coordinator
-
-# NO image: line — HA builds locally from the Dockerfile instead
-
+name: Zigbee2MQTT ESP32
+version: "1.0.0"
+slug: zigbee2mqtt-esp32
+description: Zigbee2MQTT ESP32-C6 add-on with configuration UI and socat support
 arch:
-  - amd64
   - aarch64
+  - amd64
   - armv7
 
-ports:
-  8080/tcp: 8080
-ports_description:
-  8080/tcp: Zigbee2MQTT web frontend
+startup: services
+boot: auto
+init: false
 
 uart: true
 udev: true
@@ -24,11 +19,57 @@ devices:
 map:
   - addon_config:rw
 
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: Zigbee2MQTT web frontend
+
 options:
-  serial_port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
-  mqtt_server: mqtt://core-mosquitto:1883
-  timezone: Europe/Berlin
+  data_path: /app/data
+
+  socat:
+    enabled: false
+    master: pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777
+    slave: tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5
+    options: "-d -d"
+    log: false
+
+  mqtt:
+    server: mqtt://core-mosquitto:1883
+    ca: ""
+    key: ""
+    cert: ""
+    user: mqttuser
+    password: changeme
+    base_topic: zigbee2mqtt
+
+  serial:
+    port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
+    adapter: ember
+    baudrate: 115200
+    rtscts: false
+
 schema:
-  serial_port: str
-  mqtt_server: str
-  timezone: str
+  data_path: str
+
+  socat:
+    enabled: bool
+    master: str?
+    slave: str?
+    options: str?
+    log: bool?
+
+  mqtt:
+    server: str
+    ca: str?
+    key: str?
+    cert: str?
+    user: str?
+    password: password?
+    base_topic: str?
+
+  serial:
+    port: str
+    adapter: str?
+    baudrate: int?
+    rtscts: bool?
