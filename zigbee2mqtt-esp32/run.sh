@@ -1,10 +1,11 @@
-#!/usr/bin/with-contenv bashio
+#!/bin/bash
+set -e
 
-# Read options from HA add-on config
-MQTT_SERVER=$(bashio::config 'mqtt_server')
-MQTT_USER=$(bashio::config 'mqtt_user')
-MQTT_PASSWORD=$(bashio::config 'mqtt_password')
-SERIAL_PORT=$(bashio::config 'serial_port')
+# Read options passed as environment variables from HA add-on config
+MQTT_SERVER="${MQTT_SERVER:-mqtt://core-mosquitto}"
+MQTT_USER="${MQTT_USER:-}"
+MQTT_PASSWORD="${MQTT_PASSWORD:-}"
+SERIAL_PORT="${SERIAL_PORT:-/dev/ttyACM0}"
 
 # Only write configuration.yaml on first run to avoid overwriting user changes
 if [ ! -f /app/data/configuration.yaml ]; then
@@ -21,4 +22,4 @@ EOF
 fi
 
 # Start Zigbee2MQTT
-exec node index.js
+exec node /app/index.js
