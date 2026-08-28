@@ -36,12 +36,11 @@ options:
 
   mqtt:
     server: mqtt://core-mosquitto:1883
-    ca: ""
-    key: ""
-    cert: ""
     user: mqttuser
     password: changeme
     base_topic: zigbee2mqtt
+    # NOTE: ca/key/cert intentionally omitted here.
+    # They will only exist if you explicitly add them in the UI.
 
   serial:
     port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
@@ -61,12 +60,12 @@ schema:
 
   mqtt:
     server: str
-    ca: str?
-    key: str?
-    cert: str?
     user: str?
     password: password?
     base_topic: str?
+    ca: str?      # Optional TLS CA file path
+    key: str?     # Optional TLS client key file path
+    cert: str?    # Optional TLS client certificate file path
 
   serial:
     port: str
