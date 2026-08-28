@@ -1,11 +1,11 @@
 name: Zigbee2MQTT (ESP32-C6 Custom)
-version: "1.0.0"       # bump this to trigger HA updates (see Section 7)
+version: "0.1.0"       # bump this to trigger HA updates (see Section 7)
 slug: zigbee2mqtt_esp32
 description: Custom tostmann Zigbee2MQTT fork with ESP32-C6 coordinator support
 url: https://github.com/tostmann/esp-coordinator
 
 # Use the custom prebuilt image directly (multi-arch)
-image: ghcr.io/tostmann/zigbee2mqtt-esp32
+image: ghcr.io/tostmann/zigbee2mqtt-esp32:latest
 arch:
   - amd64
   - aarch64
