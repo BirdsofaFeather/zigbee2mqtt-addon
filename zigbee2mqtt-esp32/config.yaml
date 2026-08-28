@@ -28,5 +28,11 @@ schema:
   mqtt_password: password
   serial_port: str
   zigbee_channel: int
+environment:
+  MQTT_SERVER: "{{mqtt_server}}"
+  MQTT_USER: "{{mqtt_user}}"
+  MQTT_PASSWORD: "{{mqtt_password}}"
+  SERIAL_PORT: "{{serial_port}}"
+  TINI_SUBREAPER: "1"
 devices:
   - /dev/ttyACM0
