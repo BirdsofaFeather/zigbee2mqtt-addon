@@ -6,7 +6,8 @@ MQTT_USER=$(bashio::config 'mqtt_user')
 MQTT_PASSWORD=$(bashio::config 'mqtt_password')
 SERIAL_PORT=$(bashio::config 'serial_port')
 
-# Generate configuration.yaml for Zigbee2MQTT
+# Only write configuration.yaml on first run to avoid overwriting user changes
+if [ ! -f /app/data/configuration.yaml ]; then
 cat > /app/data/configuration.yaml <<EOF
 mqtt:
   server: ${MQTT_SERVER}
@@ -17,6 +18,7 @@ serial:
 frontend:
   port: 8080
 EOF
+fi
 
 # Start Zigbee2MQTT
 exec node index.js
