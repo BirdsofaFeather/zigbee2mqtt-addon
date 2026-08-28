@@ -22,14 +22,18 @@ options:
   mqtt_password: ""
   serial_port: "/dev/ttyACM0"
   zigbee_channel: 11
+  transmit_power: 20
 schema:
   mqtt_server: str
   mqtt_user: str
   mqtt_password: password
   serial_port: str
   zigbee_channel: int
+  transmit_power: int
 environment:
   ZIGBEE2MQTT_DATA: "/config"
+privileged:
+  - SYS_RAWIO
 devices:
   - /dev/ttyACM0
   - /dev/serial/by-id/
