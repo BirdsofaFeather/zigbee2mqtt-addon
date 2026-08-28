@@ -32,8 +32,7 @@ schema:
   transmit_power: int
 environment:
   ZIGBEE2MQTT_DATA: "/config"
-privileged:
-  - SYS_RAWIO
+privileged: true
 devices:
   - /dev/ttyACM0
   - /dev/serial/by-id/
