@@ -1,45 +1,32 @@
 name: Zigbee2MQTT ESP32
 version: "1.0.0"
-slug: zigbee2mqtt-esp32
-description: Basic Zigbee2MQTT add-on for an ESP32-C6 (zboss) coordinator
+slug: zigbee2mqtt_esp32
+description: Zigbee2MQTT with ESP32-C6 ZBOSS coordinator support and NVRAM backup
+url: "https://github.com/tostmann/esp-coordinator"
 arch:
   - aarch64
   - amd64
-  - armv7
-
+init: false
 startup: services
 boot: auto
-init: false
-
-uart: true
-udev: true
-devices:
-  - /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
-
 map:
   - addon_config:rw
-
+  - share:rw
 ports:
-  8080/tcp: 8080
+  "8080/tcp": 8080
 ports_description:
-  8080/tcp: Zigbee2MQTT web frontend
-
+  "8080/tcp": "Zigbee2MQTT web UI"
 options:
-  data_path: /app/data
-  mqtt_server: mqtt://core-mosquitto:1883
-  mqtt_user: mqttuser
-  mqtt_password: changeme
-  serial_port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
-  serial_adapter: zboss
-  homeassistant: true
-  permit_join: false
-
+  mqtt_server: "mqtt://core-mosquitto"
+  mqtt_user: ""
+  mqtt_password: ""
+  serial_port: "/dev/ttyACM0"
+  zigbee_channel: 11
 schema:
-  data_path: str
   mqtt_server: str
-  mqtt_user: str?
-  mqtt_password: password?
+  mqtt_user: str
+  mqtt_password: str
   serial_port: str
-  serial_adapter: list(ember|zstack|ezsp|zboss|deconz|zigate|zoh)
-  homeassistant: bool
-  permit_join: bool
+  zigbee_channel: int
+devices:
+  - /dev/ttyACM0
