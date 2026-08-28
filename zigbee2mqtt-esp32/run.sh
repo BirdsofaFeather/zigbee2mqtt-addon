@@ -21,6 +21,8 @@ mqtt:
 serial:
   port: ${SERIAL_PORT}
   adapter: zboss
+  baudrate: 115200
+  rtscts: false
 advanced:
   transmit_power: ${TRANSMIT_POWER}
   channel: ${ZIGBEE_CHANNEL}
