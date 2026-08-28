@@ -1,7 +1,7 @@
 name: Zigbee2MQTT ESP32
 version: "1.0.0"
 slug: zigbee2mqtt-esp32
-description: Zigbee2MQTT ESP32-C6 add-on with configuration UI and socat support
+description: Basic Zigbee2MQTT add-on for an ESP32-C6 (zboss) coordinator
 arch:
   - aarch64
   - amd64
@@ -26,49 +26,20 @@ ports_description:
 
 options:
   data_path: /app/data
-
-  socat:
-    enabled: false
-    master: pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777
-    slave: tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5
-    options: "-d -d"
-    log: false
-
-  mqtt:
-    server: mqtt://core-mosquitto:1883
-    user: mqttuser
-    password: changeme
-    base_topic: zigbee2mqtt
-    # NOTE: ca/key/cert intentionally omitted here.
-    # They will only exist if you explicitly add them in the UI.
-
-  serial:
-    port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
-    adapter: ember
-    baudrate: 115200
-    rtscts: false
+  mqtt_server: mqtt://core-mosquitto:1883
+  mqtt_user: mqttuser
+  mqtt_password: changeme
+  serial_port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
+  serial_adapter: zboss
+  homeassistant: true
+  permit_join: false
 
 schema:
   data_path: str
-
-  socat:
-    enabled: bool
-    master: str?
-    slave: str?
-    options: str?
-    log: bool?
-
-  mqtt:
-    server: str
-    user: str?
-    password: password?
-    base_topic: str?
-    ca: str?      # Optional TLS CA file path
-    key: str?     # Optional TLS client key file path
-    cert: str?    # Optional TLS client certificate file path
-
-  serial:
-    port: str
-    adapter: str?
-    baudrate: int?
-    rtscts: bool?
+  mqtt_server: str
+  mqtt_user: str?
+  mqtt_password: password?
+  serial_port: str
+  serial_adapter: list(ember|zstack|ezsp|zboss|deconz|zigate|zoh)
+  homeassistant: bool
+  permit_join: bool
