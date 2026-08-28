@@ -1,35 +1,31 @@
 name: Zigbee2MQTT (ESP32-C6 Custom)
-version: "0.1.0"       # bump this to trigger HA updates (see Section 7)
+version: "0.1.0"          # ← now just a label; HA no longer uses it as a pull tag
 slug: zigbee2mqtt_esp32
 description: Custom tostmann Zigbee2MQTT fork with ESP32-C6 coordinator support
 url: https://github.com/tostmann/esp-coordinator
 
-# Use the custom prebuilt image directly (multi-arch)
-image: ghcr.io/tostmann/zigbee2mqtt-esp32
+# NO image: line — HA builds locally from the Dockerfile instead
+
 arch:
   - amd64
   - aarch64
   - armv7
 
-# Networking — maps the 8080 web UI
 ports:
   8080/tcp: 8080
 ports_description:
   8080/tcp: Zigbee2MQTT web frontend
 
-# Hardware access for the ESP32-C6 coordinator
-uart: true          # exposes serial devices
-udev: true          # replicates the /run/udev:ro mount
+uart: true
+udev: true
 devices:
-  - /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
+  - /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
 
-# Let HAOS supply the data directory (replaces ./data:/app/data)
 map:
   - addon_config:rw
 
-# User-configurable options
 options:
-  serial_port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_...
+  serial_port: /dev/serial/by-id/usb-Espressif_USB_JTAG_serial_debug_unit_A0:F2:62:86:45:98-if00
   mqtt_server: mqtt://core-mosquitto:1883
   timezone: Europe/Berlin
 schema:
