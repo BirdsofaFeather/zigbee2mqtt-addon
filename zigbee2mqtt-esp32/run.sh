@@ -18,6 +18,7 @@ mqtt:
   password: ${MQTT_PASSWORD}
 serial:
   port: ${SERIAL_PORT}
+  adapter: zboss
 frontend:
   port: 8080
 EOF
