@@ -32,3 +32,4 @@ environment:
   ZIGBEE2MQTT_DATA: "/config"
 devices:
   - /dev/ttyACM0
+  - /dev/serial/by-id/
